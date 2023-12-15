@@ -5,4 +5,5 @@ export interface ButtonInterface {
   onClick: () => void;
   className: string;
   type: ButtonType;
+  disabled?: boolean;
 }
