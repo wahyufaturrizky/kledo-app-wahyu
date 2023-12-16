@@ -1,20 +1,15 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React from "react";
-import {
-  LoaderFunctionArgs,
-  RouterProvider,
-  createBrowserRouter,
-  redirect,
-} from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Dashboard from "./screens/dashboard";
 import ErrorPage from "./screens/error-page";
 import Layout from "./screens/layout";
-import Login from "./screens/login";
 import LayoutProtected from "./screens/layout-protected";
+import Login from "./screens/login";
 import ShippingComps from "./screens/shipping-comps";
 
-const user = localStorage.getItem("user");
+// "author": "https://www.linkedin.com/in/wahyu-fatur-rizky",
 
 const queryClient = new QueryClient();
 

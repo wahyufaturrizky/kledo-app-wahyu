@@ -1,6 +1,7 @@
 {
   "name": "kledo-app-wahyu",
   "version": "0.1.0",
+  "author": "https://www.linkedin.com/in/wahyu-fatur-rizky",
   "private": true,
   "dependencies": {
     "@tanstack/react-query": "^5.14.0",
