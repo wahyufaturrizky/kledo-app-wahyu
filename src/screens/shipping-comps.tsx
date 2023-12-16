@@ -9,21 +9,25 @@ import { useCreateShippingComps, useShippingComps } from "../services/auth/useSh
 import { useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import useDebounce from "../hook/useDebounce";
 
 function ShippingComps() {
   const [isAdd, setIsAdd] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
-  const { control } = useForm({
+  const { control, watch: watchSearch } = useForm({
     defaultValues: {
       search: "",
     },
   });
 
+  const debounceFetchShippingComps = useDebounce(watchSearch("search"), 1000);
+
   const { control: addControl, handleSubmit: handleSubmitAdd } = useForm({
     defaultValues: {
       name: "",
     },
+    shouldUnregister: true,
   });
 
   const {
@@ -31,6 +35,9 @@ function ShippingComps() {
     isPending,
     refetch: refetchShippingComps,
   } = useShippingComps({
+    query: {
+      search: debounceFetchShippingComps,
+    },
     options: {
       onSuccess: () => {},
       select: (res: any) => {
@@ -74,15 +81,22 @@ function ShippingComps() {
             <Controller
               control={addControl}
               name="name"
-              render={({ field: { onChange, onBlur, value } }) => (
+              rules={{
+                required: {
+                  value: true,
+                  message: "Nama harus diisi",
+                },
+              }}
+              render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                 <Input
                   onChange={onChange}
+                  error={error}
                   onBlur={onBlur}
                   value={value}
                   label="Nama"
                   name="name"
                   type="text"
-                  required
+                  required={true}
                   classNameInput="block w-60 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-kl-blue sm:text-sm sm:leading-6"
                   classNameLabel="block text-sm font-bold leading-6 text-kl-gray"
                 />
@@ -95,7 +109,7 @@ function ShippingComps() {
                 onClick={handleSubmitAdd(handleAdd)}
                 label={isPendingCreateShippingComps ? "Loading..." : "Simpan"}
                 type="button"
-                className="w-auto justify-center rounded-lg bg-kl-blue px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-kl-blue-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kl-blue"
+                className="w-auto items-center justify-center rounded-lg bg-kl-blue px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-kl-blue-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kl-blue"
               />
             </div>
           </div>

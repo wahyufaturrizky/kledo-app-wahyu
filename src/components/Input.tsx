@@ -1,4 +1,5 @@
 import { InputInterface } from "../interface/Input";
+import Text from "./Text";
 
 const Input = ({
   label,
@@ -12,6 +13,7 @@ const Input = ({
   onBlur,
   value,
   placeholder,
+  error,
 }: InputInterface) => {
   return (
     <div>
@@ -32,6 +34,9 @@ const Input = ({
           value={value}
         />
       </div>
+      {error && (
+        <Text className="text-[#EB5757] font-roboto mt-2 font-bold text-sm" label={error.message} />
+      )}
     </div>
   );
 };

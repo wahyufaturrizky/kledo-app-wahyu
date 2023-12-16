@@ -119,7 +119,7 @@ function Login() {
                     onClick={handleSubmit(handleLogin)}
                     label={isPending ? "Loading..." : "Login"}
                     type="submit"
-                    className="flex w-full justify-center rounded-full bg-kl-blue px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-kl-blue-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kl-blue"
+                    className="flex items-center w-full justify-center rounded-full bg-kl-blue px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-kl-blue-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kl-blue"
                   />
                 </div>
               </form>

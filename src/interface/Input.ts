@@ -9,6 +9,7 @@ export interface InputInterface {
   autoComplete?: string;
   placeholder?: string;
   required: boolean;
+  error?: any;
   onChange: ChangeEventHandler<HTMLInputElement>;
   onBlur: FocusEventHandler<HTMLInputElement>;
   value: string | number | readonly string[] | undefined;
