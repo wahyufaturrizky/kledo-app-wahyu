@@ -77,10 +77,18 @@ function Login() {
               <form className="space-y-6" action="#" method="POST">
                 <Controller
                   control={control}
+                  rules={{
+                    required: "Email is required",
+                    pattern: {
+                      value: /^\S+@\S+$/i,
+                      message: "Invalid email address",
+                    },
+                  }}
                   name="email"
-                  render={({ field: { onChange, onBlur, value } }) => (
+                  render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                     <Input
                       onChange={onChange}
+                      error={error}
                       onBlur={onBlur}
                       value={value}
                       label="Email"
@@ -96,11 +104,15 @@ function Login() {
 
                 <Controller
                   control={control}
+                  rules={{
+                    required: "Password is required",
+                  }}
                   name="password"
-                  render={({ field: { onChange, onBlur, value } }) => (
+                  render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                     <Input
                       onChange={onChange}
                       onBlur={onBlur}
+                      error={error}
                       value={value}
                       label="Password"
                       name="password"
