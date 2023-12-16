@@ -5,7 +5,7 @@ function Dashboard() {
 
   return (
     <div className="p-4 sm:ml-64 bg-[#BDBDBD] h-screen">
-      <div className="bg-white p-4 rounded">
+      <div className="bg-white p-4 rounded-lg">
         <Text label="Dashboard" className="font-roboto text-2xl font-bold" />
 
         <div className="flex flex-col m-14 items-center justify-center h-96 rounded bg-[#F2F2F2]">

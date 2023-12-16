@@ -7,7 +7,6 @@ function Layout() {
   useEffect(() => {
     const handleAuth = () => {
       const user = localStorage.getItem("user");
-      console.log("🚀 ~ file: layout.tsx:8 ~ handleAuth ~ user:", user);
 
       if (user) {
         navigate("/protected/dashboard");

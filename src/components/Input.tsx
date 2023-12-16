@@ -11,6 +11,7 @@ const Input = ({
   onChange,
   onBlur,
   value,
+  placeholder,
 }: InputInterface) => {
   return (
     <div>
@@ -20,6 +21,7 @@ const Input = ({
       <div className="mt-2">
         <input
           className={classNameInput}
+          placeholder={placeholder}
           id={name}
           name={name}
           type={type}

@@ -1,9 +1,7 @@
 import { ChangeEventHandler, FocusEventHandler } from "react";
 
-export interface InputInterface {
-  label: string;
-  classNameInput: string;
-  classNameLabel: string;
+export interface InputSearchInterface {
+  className: string;
   name: string;
   type: string;
   autoComplete?: string;

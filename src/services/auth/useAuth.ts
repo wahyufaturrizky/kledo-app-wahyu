@@ -12,4 +12,15 @@ function useSignIn({ options }: any) {
   });
 }
 
-export { useSignIn };
+function useLogOut({ options }: any) {
+  return useMutation({
+    mutationFn: (reqBody) =>
+      client("/authentication/logout", {
+        method: "POST",
+        data: reqBody,
+      }),
+    ...options,
+  });
+}
+
+export { useSignIn, useLogOut };
