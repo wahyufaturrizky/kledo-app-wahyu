@@ -16,7 +16,7 @@ function Layout() {
     };
 
     handleAuth();
-  }, []);
+  }, [navigate]);
 
   return (
     <div>

@@ -18,7 +18,7 @@ function LayoutProtected() {
     };
 
     handleAuth();
-  }, []);
+  }, [navigate]);
 
   return (
     <div>

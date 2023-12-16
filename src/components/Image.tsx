@@ -1,7 +1,7 @@
 import { ImageInterface } from "../interface/Image";
 
-const Image = ({ ...props }: ImageInterface) => {
-  return <img {...props} />;
+const Image = ({ onClick, className, src, alt }: ImageInterface) => {
+  return <img onClick={onClick} className={className} src={src} alt={alt} />;
 };
 
 export default Image;
