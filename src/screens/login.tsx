@@ -51,11 +51,11 @@ function Login() {
         const { access_token } = res.data.data.data;
 
         localStorage.setItem("access_token", access_token);
-        localStorage.setItem("user", res);
+        localStorage.setItem("user", JSON.stringify(res));
 
         console.log("asdasd");
 
-        navigate("/dashboard");
+        navigate("/protected/dashboard");
       },
     },
   });
@@ -67,8 +67,6 @@ function Login() {
       <Header setIsClickLogin={setIsClickLogin} isClickLogin={isClickLogin} />
 
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        {/* LOGIN */}
-
         {isClickLogin ? (
           <div>
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">

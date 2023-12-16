@@ -1,7 +1,9 @@
-import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import Header from "../components/Header";
+import SideBar from "../components/SideBar";
+import { useEffect } from "react";
 
-function Layout() {
+function LayoutProtected() {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,9 +23,13 @@ function Layout() {
 
   return (
     <div>
+      <Header />
+
+      <SideBar />
+
       <Outlet />
     </div>
   );
 }
 
-export default Layout;
+export default LayoutProtected;

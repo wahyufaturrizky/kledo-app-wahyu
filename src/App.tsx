@@ -11,6 +11,8 @@ import Dashboard from "./screens/dashboard";
 import ErrorPage from "./screens/error-page";
 import Layout from "./screens/layout";
 import Login from "./screens/login";
+import LayoutProtected from "./screens/layout-protected";
+import ShippingComps from "./screens/shipping-comps";
 
 const user = localStorage.getItem("user");
 
@@ -30,19 +32,25 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "dashboard",
-        element: <Dashboard />,
-      },
-      {
         path: "login",
         element: <Login />,
       },
     ],
   },
   {
-    path: "/dashboard",
-    element: <Dashboard />,
+    path: "/protected",
+    element: <LayoutProtected />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "shipping-comps",
+        element: <ShippingComps />,
+      },
+    ],
   },
 ]);
 
