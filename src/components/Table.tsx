@@ -1,6 +1,6 @@
 import { TableInterface } from "../interface/Table";
 
-const Table = ({ columns, dataSource, loading }: TableInterface) => {
+const Table = ({ columns, dataSource, loading, selectedRow }: TableInterface) => {
   return (
     <div className="relative overflow-x-auto rounded-lg">
       <table className="w-full text-sm text-left text-gray-500">
@@ -50,7 +50,11 @@ const Table = ({ columns, dataSource, loading }: TableInterface) => {
             <>
               {dataSource.map((data: any, index: number) => {
                 return (
-                  <tr key={index} className="bg-white border-b">
+                  <tr
+                    onClick={() => selectedRow(data)}
+                    key={index}
+                    className="bg-white border-b cursor-pointer"
+                  >
                     {Object.keys(data)
                       .filter((subData: any) =>
                         columns.map((dataCol: any) => dataCol.dataIndex).includes(subData)

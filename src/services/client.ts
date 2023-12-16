@@ -33,7 +33,6 @@ export async function client(
       return response;
     })
     .catch((e: any) => {
-      console.log("Error Client", e.response);
       window.alert(e.response.data);
     });
 }

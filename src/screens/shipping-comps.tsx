@@ -1,19 +1,25 @@
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import addIcon from "../assets/image/add.png";
-import Image from "../components/Image";
-import SearchInput from "../components/SearchInput";
-import Text from "../components/Text";
-import Table from "../components/Table";
-import { useSignIn } from "../services/auth/useAuth";
-import { useCreateShippingComps, useShippingComps } from "../services/auth/useShippingComps";
-import { useState } from "react";
-import Input from "../components/Input";
+import delIcon from "../assets/image/delete.png";
 import Button from "../components/Button";
+import Image from "../components/Image";
+import Input from "../components/Input";
+import SearchInput from "../components/SearchInput";
+import Table from "../components/Table";
+import Text from "../components/Text";
 import useDebounce from "../hook/useDebounce";
+import {
+  useCreateShippingComps,
+  useDeleteShippingComps,
+  useShippingComps,
+  useUpdateShippingComps,
+} from "../services/auth/useShippingComps";
 
 function ShippingComps() {
   const [isAdd, setIsAdd] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [idSelected, setIdSelected] = useState<number>();
 
   const { control, watch: watchSearch } = useForm({
     defaultValues: {
@@ -23,7 +29,11 @@ function ShippingComps() {
 
   const debounceFetchShippingComps = useDebounce(watchSearch("search"), 1000);
 
-  const { control: addControl, handleSubmit: handleSubmitAdd } = useForm({
+  const {
+    control: addControl,
+    handleSubmit: handleSubmitAdd,
+    setValue,
+  } = useForm({
     defaultValues: {
       name: "",
     },
@@ -52,12 +62,43 @@ function ShippingComps() {
         onSuccess: () => {
           setIsAdd(false);
           refetchShippingComps();
+
+          window.alert("Success add data");
+        },
+      },
+    });
+
+  const { mutate: updateShippingComps, isPending: isPendingUpdateShippingComps } =
+    useUpdateShippingComps({
+      id: idSelected,
+      options: {
+        onSuccess: () => {
+          refetchShippingComps();
+          setIsEdit(false);
+
+          window.alert("Success update data");
+        },
+      },
+    });
+
+  const { mutate: deleteShippingComps, isPending: isPendingDeleteShippingComps } =
+    useDeleteShippingComps({
+      id: idSelected,
+      options: {
+        onSuccess: () => {
+          refetchShippingComps();
+          setIsEdit(false);
+          window.alert("Success delete data");
         },
       },
     });
 
   const handleAdd = (data: any) => {
-    createShippingComps(data);
+    if (idSelected) {
+      updateShippingComps(data);
+    } else {
+      createShippingComps(data);
+    }
   };
 
   const columns = [
@@ -71,12 +112,36 @@ function ShippingComps() {
     },
   ];
 
+  const selectedRow = (data: any) => {
+    setIdSelected(data.id);
+    setValue("name", data.name);
+    setIsEdit(true);
+  };
+
   return (
     <div className="p-4 sm:ml-64 bg-[#BDBDBD] h-screen">
       <div className="bg-white p-4 rounded-lg">
-        {isAdd ? (
+        {isAdd || isEdit ? (
           <div>
-            <Text label="Tambah Shipping Comps" className="font-roboto text-2xl font-bold mb-5" />
+            <div className="flex items-center gap-4 mb-5">
+              <Text
+                label={`${isEdit ? "Edit" : "Tambah"} Shipping Comps`}
+                className="font-roboto text-2xl font-bold "
+              />
+
+              {isEdit && (
+                <Image
+                  onClick={() => {
+                    if (!isPendingDeleteShippingComps) {
+                      deleteShippingComps();
+                    }
+                  }}
+                  className="cursor-pointer"
+                  src={delIcon}
+                  alt="addIcon"
+                />
+              )}
+            </div>
 
             <Controller
               control={addControl}
@@ -105,9 +170,19 @@ function ShippingComps() {
 
             <div className="mt-5">
               <Button
-                disabled={isPendingCreateShippingComps}
+                disabled={
+                  isPendingCreateShippingComps ||
+                  isPendingUpdateShippingComps ||
+                  isPendingDeleteShippingComps
+                }
                 onClick={handleSubmitAdd(handleAdd)}
-                label={isPendingCreateShippingComps ? "Loading..." : "Simpan"}
+                label={
+                  isPendingCreateShippingComps ||
+                  isPendingUpdateShippingComps ||
+                  isPendingDeleteShippingComps
+                    ? "Loading..."
+                    : "Simpan"
+                }
                 type="button"
                 className="w-auto items-center justify-center rounded-lg bg-kl-blue px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-kl-blue-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kl-blue"
               />
@@ -148,6 +223,7 @@ function ShippingComps() {
               <Table
                 loading={isPending}
                 dataSource={dataShipping}
+                selectedRow={selectedRow}
                 columns={columns.filter((filtering: any) => filtering.dataIndex !== "id")}
               />
             </div>
