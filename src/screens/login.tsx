@@ -16,11 +16,11 @@ const profile = [
   },
   {
     label: "Alamat",
-    value: "212-970-4133",
+    value: "Malybu Mansion",
   },
   {
     label: "No. HP",
-    value: "Malybu Mansion",
+    value: "212-970-4133",
   },
   {
     label: "Email",
