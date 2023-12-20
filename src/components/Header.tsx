@@ -7,9 +7,11 @@ import imgProfile from "../assets/image/profile-image.png";
 const Header = ({
   setIsClickLogin,
   isClickLogin,
+  className,
 }: {
   setIsClickLogin?: Dispatch<SetStateAction<boolean>>;
   isClickLogin?: boolean;
+  className?: string;
 }) => {
   const user = JSON.parse(localStorage.getItem("user") as string);
 
@@ -20,7 +22,7 @@ const Header = ({
     location.pathname === "/protected/shipping-comps";
 
   return (
-    <div className="bg-kl-blue flex justify-between p-4 relative">
+    <div className={className}>
       <Text label="KLEDO TEST" className="font-bold not-italic	text-2xl font-roboto text-white" />
 
       {isProtectedRoute ? (

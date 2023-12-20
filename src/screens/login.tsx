@@ -62,7 +62,11 @@ function Login() {
 
   return (
     <div>
-      <Header setIsClickLogin={setIsClickLogin} isClickLogin={isClickLogin} />
+      <Header
+        className="bg-kl-blue flex justify-between p-4 relative"
+        setIsClickLogin={setIsClickLogin}
+        isClickLogin={isClickLogin}
+      />
 
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         {isClickLogin ? (

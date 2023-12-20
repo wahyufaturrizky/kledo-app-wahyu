@@ -22,7 +22,7 @@ function LayoutProtected() {
 
   return (
     <div>
-      <Header />
+      <Header className="bg-kl-blue flex justify-between p-4 z-10 sticky top-0" />
 
       <SideBar />
 
